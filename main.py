@@ -3,9 +3,9 @@ import shutil
 import os
 import uuid
 from utils.tools import extrair_audio_do_video, compactar_video
-from transcricao import transcrever_audio
+#from utils.transcricao import transcrever_audio
 from llms.gemini_voz import analisar_audio_com_gemini
-from llms.openai_voz import analisar_audio_com_gpt4
+#from llms.openai_voz import analisar_audio_com_gpt4
 
 app = FastAPI()
 
@@ -23,16 +23,15 @@ async def validar_pronuncia(
     # Extrair e compactar vídeo
     video_compactado = compactar_video(nome_arquivo)
     caminho_audio = extrair_audio_do_video(video_compactado)
-    caminho_pronuncia_correta = "uploads/audio/The Invisible Solar Expertise.mp3"
+    #caminho_pronuncia_correta = "uploads/audio/The Invisible Solar Expertise.mp3"
 
     # Transcrever com Whisper
-    transcricao = transcrever_audio(caminho_audio)
+    #transcricao = transcrever_audio(caminho_audio)
 
     # Análise com Gemini Flash
     resposta_gemini = analisar_audio_com_gemini(caminho_audio,
-                                                palavra_esperada,
-                                                caminho_pronuncia_correta)
-    resposta_openai = analisar_audio_com_gpt4(transcricao, palavra_esperada)
+                                                palavra_esperada)
+    #resposta_openai = analisar_audio_com_gpt4(transcricao, palavra_esperada)
 
     # Limpeza
     os.remove(nome_arquivo)
@@ -41,7 +40,7 @@ async def validar_pronuncia(
 
     return {
         "palavra_esperada": palavra_esperada,
-        "transcricao": transcricao,
+        #"transcricao": transcricao,
         "gemini_resposta": resposta_gemini,
-        "openai_resposta": resposta_openai
+        #"openai_resposta": resposta_openai
     }

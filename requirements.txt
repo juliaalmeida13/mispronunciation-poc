@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+openai-whisper
+openai
+google-generativeai
+python-dotenv
+rich
+python-multipart
+
